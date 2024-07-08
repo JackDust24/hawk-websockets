@@ -1,0 +1,15 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# temp ignore
+react-client/
+# dependencies
+node_modules/
+react-client/
+server/node_modules/
+react-native/node_modules/
+react-client/.env
+server/.env
+react-native/.env
+# macOS
+.DS_Store
+
