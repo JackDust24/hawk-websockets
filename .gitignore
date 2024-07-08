@@ -2,9 +2,9 @@
 
 # dependencies
 node_modules/
-react-client/
 server/node_modules/
 react-native/node_modules/
+react-client/node_modules/
 react-client/.env
 server/.env
 react-native/.env
