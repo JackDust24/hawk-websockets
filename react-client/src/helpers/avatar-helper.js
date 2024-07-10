@@ -1,5 +1,4 @@
 // Code snippet from: https://mui.com/material-ui/react-avatar/
-
 function stringToColor(string) {
   let hash = 0;
   let i;

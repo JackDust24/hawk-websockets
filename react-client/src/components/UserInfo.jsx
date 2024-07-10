@@ -17,7 +17,7 @@ export function UserInfo() {
   }
 
   return users.map((user) => (
-    <div key={user.username}>
+    <div key={user.username} className='mr-4'>
       <Tooltip title={user.username}>
         <span id={user.username} className='userInfo' key={user.username}>
           <Avatar {...stringAvatar(user.username)} />

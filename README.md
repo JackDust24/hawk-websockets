@@ -8,9 +8,13 @@ IN PROGRESS: This will be a small project using web sockets, React Native and Re
 - [Project Overview](#project-overview)
 - [Tech Stack](#tech-stack)
 - [Implementation Stages](#implementation-stages)
+- [Screenshots](#screenshots)
+
 
 ## Project Overview
 This is in preparation for SaaS I will be building. For this is a small chat app using React and React Native with Node.js as the backend.
+
+The React app is just small basic app, no unit tests or typescript, the main focus is Node and React Native
 
 ## Tech Stack
 - React
@@ -25,13 +29,18 @@ This is in preparation for SaaS I will be building. For this is a small chat app
    * Pushed to Git? Yes
 2. Set up basic client on React and test flow
    * Implemented? Yes
-   * Pushed to Git? No 
+   * Pushed to Git? Yes 
 3. Refactor client and UI
    * Implemented? Yes
    * Pushed to Git? Yes 
 4. Set up proper chat display
+   * Implemented? Yes
+   * Pushed to Git? Yes 
 5. Set up React Native client and test flow
 6. Refactor React Native client and UI
 7. Build REST on server
 8. Fetch data from REST for client and display
-9.  Fetch data from React Native for client and display
+9. Fetch data from React Native for client and display
+
+## Screenshots
+![Chat screen](./assets/screenshot1.png)
