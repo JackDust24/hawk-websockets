@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { WS_URL } from '../api/websockets-helpers';
 import { InteractionArea } from '../components/InteractionArea';
 import { LoginSection } from '../components/Login';
-import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 export function MainPage() {
   const [username, setUsername] = useState('');
@@ -32,11 +32,21 @@ export function MainPage() {
     <>
       {/* <CssBaseline /> */}
       <Container maxWidth='xl' sx={{ bgcolor: '#ecfeff' }}>
-        {username ? (
-          <InteractionArea />
-        ) : (
-          <LoginSection onLogin={setUsername} />
-        )}
+        <Box
+          sx={{
+            bgcolor: '#ecfeff',
+            height: '90vh',
+            display: 'flex',
+            overflowY: 'auto',
+            margin: '20px',
+          }}
+        >
+          {username ? (
+            <InteractionArea />
+          ) : (
+            <LoginSection onLogin={setUsername} />
+          )}
+        </Box>
       </Container>
     </>
   );

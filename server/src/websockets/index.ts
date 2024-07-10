@@ -24,6 +24,7 @@ export const clients: Client = {};
 export const users: User = {};
 let editorContent: string | null = null;
 let userActivity: string[] = [];
+let user: string | null = null;
 
 // Event types
 const typesDef: TypesDef = {
@@ -49,6 +50,7 @@ export const setupWebSockets = (server: Server) => {
 };
 
 export function broadcastMessage(json: JsonMessage): void {
+  console.log(json);
   const data = JSON.stringify(json);
   for (let userId in clients) {
     let client = clients[userId];
@@ -68,7 +70,8 @@ export function handleMessage(message: any, userId: string) {
     json.data = { users, userActivity };
   } else if (dataFromClient.type === typesDef.CONTENT_CHANGE) {
     editorContent = dataFromClient.content;
-    json.data = { editorContent, userActivity };
+    user = dataFromClient.username;
+    json.data = { editorContent, userActivity, user };
   }
 
   broadcastMessage(json);
