@@ -20,9 +20,14 @@ type JsonMessage = {
   data: any;
 };
 
+type Content = {
+  user: string;
+  content: string;
+};
+
 export const clients: Client = {};
 export const users: User = {};
-let editorContent: string | null = null;
+let editorContent: Content[] = [];
 let userActivity: string[] = [];
 let user: string | null = null;
 
@@ -50,8 +55,8 @@ export const setupWebSockets = (server: Server) => {
 };
 
 export function broadcastMessage(json: JsonMessage): void {
-  console.log(json);
   const data = JSON.stringify(json);
+
   for (let userId in clients) {
     let client = clients[userId];
     if (client.readyState === WebSocket.OPEN) {
@@ -66,11 +71,13 @@ export function handleMessage(message: any, userId: string) {
 
   if (dataFromClient.type === typesDef.USER_EVENT) {
     users[userId] = dataFromClient;
-    userActivity.push(`${dataFromClient.username} joined to join the chat`);
+    userActivity.push(`${dataFromClient.username} joined the chat`);
     json.data = { users, userActivity };
   } else if (dataFromClient.type === typesDef.CONTENT_CHANGE) {
-    editorContent = dataFromClient.content;
-    user = dataFromClient.username;
+    editorContent.push({
+      user: dataFromClient.username,
+      content: dataFromClient.content,
+    });
     json.data = { editorContent, userActivity, user };
   }
 
@@ -81,7 +88,7 @@ export function handleDisconnect(userId: string) {
   const json: JsonMessage = { type: typesDef.USER_EVENT, data: {} };
 
   const username = users[userId]?.username || userId;
-  userActivity.push(`${username} left the document`);
+  userActivity.push(`${username} left the chat`);
   json.data = { users, userActivity };
 
   delete clients[userId];
