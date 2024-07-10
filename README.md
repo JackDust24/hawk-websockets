@@ -25,13 +25,15 @@ This is in preparation for SaaS I will be building. For this is a small chat app
    * Pushed to Git? Yes
 2. Set up basic client on React and test flow
    * Implemented? Yes
-   * Pushed to Git? No 
+   * Pushed to Git? Yes 
 3. Refactor client and UI
    * Implemented? Yes
    * Pushed to Git? Yes 
 4. Set up proper chat display
+   * Implemented? Yes
+   * Pushed to Git? Yes 
 5. Set up React Native client and test flow
 6. Refactor React Native client and UI
 7. Build REST on server
 8. Fetch data from REST for client and display
-9.  Fetch data from React Native for client and display
+9. Fetch data from React Native for client and display

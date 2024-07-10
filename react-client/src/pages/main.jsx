@@ -30,7 +30,6 @@ export function MainPage() {
 
   return (
     <>
-      {/* <CssBaseline /> */}
       <Container maxWidth='xl' sx={{ bgcolor: '#ecfeff' }}>
         <Box
           sx={{
@@ -42,7 +41,7 @@ export function MainPage() {
           }}
         >
           {username ? (
-            <InteractionArea />
+            <InteractionArea username={username} />
           ) : (
             <LoginSection onLogin={setUsername} />
           )}
