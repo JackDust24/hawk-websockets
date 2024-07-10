@@ -27,8 +27,8 @@ let userActivity: string[] = [];
 
 // Event types
 const typesDef: TypesDef = {
-  USER_EVENT: 'userevent',
-  CONTENT_CHANGE: 'contentchange',
+  USER_EVENT: 'user',
+  CONTENT_CHANGE: 'content',
 };
 
 export const setupWebSockets = (server: Server) => {
@@ -39,7 +39,6 @@ export const setupWebSockets = (server: Server) => {
     clients[userId] = connection;
 
     connection.on('message', (message) => {
-      console.log('Message receivef');
       handleMessage(message, userId);
     });
 
@@ -65,7 +64,7 @@ export function handleMessage(message: any, userId: string) {
 
   if (dataFromClient.type === typesDef.USER_EVENT) {
     users[userId] = dataFromClient;
-    userActivity.push(`${dataFromClient.username} joined to edit the document`);
+    userActivity.push(`${dataFromClient.username} joined to join the chat`);
     json.data = { users, userActivity };
   } else if (dataFromClient.type === typesDef.CONTENT_CHANGE) {
     editorContent = dataFromClient.content;
