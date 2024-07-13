@@ -40,9 +40,13 @@ The React app is just small basic app, no unit tests or typescript, the main foc
    * Implemented? Yes
    * Pushed to Git? Yes 
 6. Set up React Native client with login and connect to WS
+   * Implemented? Yes
+   * Pushed to Git? Yes 
 7. Set up React Native client and display chat
+   * Implemented? Yes
+   * Pushed to Git? Yes 
 8. Refactor React Native client and UI
-9. Set up tab controller on RN
+9.  Set up tab controller on RN
 10. Build REST on server
 11. Fetch data from REST for client and display
 12. Fetch data from React Native for client and display

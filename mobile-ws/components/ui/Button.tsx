@@ -1,19 +1,35 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 export function Button({
   children,
   onPress,
+  viewStyle,
+  textStyle,
 }: {
   children: string;
   onPress: () => void;
+  viewStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }) {
   return (
     <Pressable
-      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        styles.button,
+        pressed && styles.pressed,
+        viewStyle,
+      ]}
       onPress={onPress}
     >
       <View>
-        <Text style={styles.buttonText}>{children}</Text>
+        <Text style={[styles.buttonText, textStyle]}>{children}</Text>
       </View>
     </Pressable>
   );

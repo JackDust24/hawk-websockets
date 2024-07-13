@@ -14,35 +14,24 @@ import useWebSocket, { ReadyState } from 'react-native-use-websocket';
 import { useState } from 'react';
 import { WS_URL_DEV } from '../utils/api';
 import { useChatContext } from '../providers/ChatProvider';
+import { UserInfo } from '../components/UserInfo';
+import { ChatArea } from '../components/ChatArea';
 
 // Set this so we can use typsafe for navigation
-type LoginScreenNavigationProp = StackNavigationProp<
+type InteractiveScreenNavigationProp = StackNavigationProp<
   RootStackParamsList,
-  'Login'
+  'InteractionArea'
 >;
 
-export function LoginScreen() {
-  const navigation = useNavigation<LoginScreenNavigationProp>();
-  const [username, setUsername] = useState('');
+export function InteractionArea() {
+  const navigation = useNavigation<InteractiveScreenNavigationProp>();
   const { onLogin } = useChatContext();
 
   // Notify the server a new user has joined
-  const { sendJsonMessage, readyState } = useWebSocket(WS_URL_DEV, {
+  useWebSocket(WS_URL_DEV, {
     share: true,
     filter: () => false,
   });
-
-  function logInUser() {
-    if (!username.trim() && readyState !== ReadyState.OPEN) {
-      return;
-    }
-    sendJsonMessage({
-      username,
-      type: 'user',
-    });
-    onLogin && onLogin(username);
-    navigation.navigate('InteractionArea');
-  }
 
   return (
     <View style={styles.container}>
@@ -51,34 +40,14 @@ export function LoginScreen() {
         resizeMode='cover'
         style={styles.image}
       >
-        <View style={styles.loginBox}>
+        <View style={styles.userBox}>
           <View style={styles.textContainer}>
-            <Text style={styles.welcomeText}>Welcome!</Text>
-            <Text style={styles.joinText}>Join the chat</Text>
+            <Text style={styles.welcomeText}>Interaction Area!</Text>
           </View>
-          <TextInput
-            value={username}
-            onChangeText={setUsername}
-            style={styles.input}
-            placeholder='Enter your username'
-          />
-          <Button
-            onPress={logInUser}
-            viewStyle={styles.joinButtonView}
-            textStyle={styles.joinButtonText}
-          >
-            Join
-          </Button>
+          <UserInfo />
         </View>
-
-        <View style={styles.exitButtonView}>
-          <Button
-            onPress={() => navigation.navigate('Welcome')}
-            viewStyle={{ backgroundColor: '#000' }}
-            textStyle={{ fontSize: 16 }}
-          >
-            Exit
-          </Button>
+        <View style={styles.chatArea}>
+          <ChatArea />
         </View>
       </ImageBackground>
     </View>
@@ -91,17 +60,18 @@ const styles = StyleSheet.create({
     padding: 0,
     width: '100%',
     backgroundColor: 'transparent',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   image: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     width: '100%',
   },
-  loginBox: {
+  userBox: {
+    marginTop: 100,
+    justifyContent: 'flex-start',
     backgroundColor: '#E0F7FA',
-    marginTop: 30,
     paddingVertical: 16,
     paddingHorizontal: 16,
     width: '90%',
@@ -113,6 +83,14 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 5,
     marginHorizontal: 20,
+    zIndex: 1,
+  },
+  chatArea: {
+    flexGrow: 1,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    width: '100%',
+    backgroundColor: 'transparent',
   },
   textContainer: {
     justifyContent: 'flex-start',
