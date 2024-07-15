@@ -3,10 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Avatar, Tooltip } from 'react-native-paper';
 import useWebSocket, { ReadyState } from 'react-native-use-websocket';
 import { WS_URL_DEV, isUserEvent } from '../utils/api';
-import { stringAvatar } from '../utils/helpers';
+import { stringAvatar, stringToColor } from '../utils/helpers';
 
 export function UserInfo() {
-  // Info about the users
   const { lastJsonMessage } = useWebSocket(WS_URL_DEV, {
     share: true,
     filter: isUserEvent,
@@ -16,8 +15,10 @@ export function UserInfo() {
 
   if (!users || users.length === 0) {
     return (
-      <View style={styles.noUsersContainer}>
-        <Text style={styles.noUsersText}>No Users have joined</Text>
+      <View style={styles.container}>
+        <View style={styles.noUsersContainer}>
+          <Text style={styles.noUsersText}>No Users have joined</Text>
+        </View>
       </View>
     );
   }
@@ -30,7 +31,7 @@ export function UserInfo() {
             <Avatar.Text
               size={40}
               label={stringAvatar(user.username)}
-              style={styles.avatar}
+              style={{ backgroundColor: stringToColor(user.username) }}
             />
           </Tooltip>
         </View>
@@ -48,9 +49,6 @@ const styles = StyleSheet.create({
   userContainer: {
     marginRight: 16,
     marginBottom: 16,
-  },
-  avatar: {
-    backgroundColor: '#6200ea',
   },
   noUsersContainer: {
     justifyContent: 'center',

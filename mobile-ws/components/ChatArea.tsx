@@ -14,7 +14,6 @@ import { useChatContext } from '../providers/ChatProvider';
 
 export function ChatArea() {
   const { username } = useChatContext();
-
   const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL_DEV, {
     share: true,
     filter: isContentEvent,
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: '#fff',
+    borderRadius: 10,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)', // Semi-transparent overlay
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
   },
   messageContainer: {
     flexGrow: 1,

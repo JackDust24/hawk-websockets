@@ -2,7 +2,6 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
   StyleSheet,
   ImageBackground,
 } from 'react-native';
@@ -15,7 +14,6 @@ import { useState } from 'react';
 import { WS_URL_DEV } from '../utils/api';
 import { useChatContext } from '../providers/ChatProvider';
 
-// Set this so we can use typsafe for navigation
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamsList,
   'Login'
