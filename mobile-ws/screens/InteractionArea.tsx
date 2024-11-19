@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F7FA',
     paddingVertical: 16,
     paddingHorizontal: 16,
+    borderRadius: 20,
     width: '90%',
     shadowColor: Colors.blueParagraph,
     shadowOffset: { width: 0, height: 2 },

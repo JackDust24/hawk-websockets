@@ -62,7 +62,7 @@ export function LoginScreen() {
             onChangeText={setUsername}
             style={styles.input}
             placeholder='Enter your username'
-            placeholderTextColor={Colors.yellowParagraph}
+            placeholderTextColor={Colors.blueParagraph}
           />
           <Pressable style={styles.loginButton} onPress={logInUser}>
             <Text style={styles.loginButtonText}>Join</Text>
@@ -101,15 +101,15 @@ const styles = StyleSheet.create({
     marginBottom: 30, // Spacing between header and input
   },
   headerText: {
-    fontSize: 32,
+    fontSize: 40,
     fontWeight: 'bold',
-    color: Colors.greenHeader,
+    color: Colors.blueHeader,
     textAlign: 'center',
     marginBottom: 10,
   },
   subHeaderText: {
-    fontSize: 18,
-    color: Colors.greenParagraph,
+    fontSize: 24,
+    color: Colors.blueHeader,
     textAlign: 'center',
   },
   formContainer: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   input: {
     width: '90%',
     height: 50,
-    borderColor: Colors.yellowHeader,
+    borderColor: Colors.blueHeader,
     borderWidth: 2,
     borderRadius: 8,
     paddingHorizontal: 15,
@@ -137,10 +137,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
+    marginTop: 30,
   },
   loginButtonText: {
-    fontSize: 16,
-    color: Colors.pinkHeader,
+    fontSize: 24,
+    color: Colors.blueHeader,
     fontWeight: 'bold',
   },
   footerContainer: {

@@ -51,26 +51,20 @@ export function WelcomeScreen() {
         <View style={styles.headerContainer}>
           <Text style={styles.header}>Welcome to HawkRewards</Text>
         </View>
-        <View style={[styles.card, { backgroundColor: Colors.pinkBackground }]}>
-          <Text style={[styles.cardTitle, { color: Colors.pinkHeader }]}>
+        <View style={[styles.card, { backgroundColor: '#E0F7FA' }]}>
+          <Text style={[styles.cardTitle, { color: '#000' }]}>
             Your Rewards
           </Text>
-          <Text
-            style={[styles.cardDescription, { color: Colors.pinkParagraph }]}
-          >
+          <Text style={[styles.cardDescription, { color: Colors.blueHeader }]}>
             Seamlessly find all your rewards in one place.
           </Text>
         </View>
 
-        <View
-          style={[styles.card, { backgroundColor: Colors.yellowBackground }]}
-        >
-          <Text style={[styles.cardTitle, { color: Colors.yellowHeader }]}>
+        <View style={[styles.card, { backgroundColor: '#E0F7FA' }]}>
+          <Text style={[styles.cardTitle, { color: '#000' }]}>
             Receive Updates and Latest Discounts
           </Text>
-          <Text
-            style={[styles.cardDescription, { color: Colors.yellowParagraph }]}
-          >
+          <Text style={[styles.cardDescription, { color: Colors.blueHeader }]}>
             Latest updates and chat with your rewards provider.
           </Text>
         </View>

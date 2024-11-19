@@ -90,5 +90,5 @@ Login and enter then start sending messages via mobile and browser
 
 ## Screenshots
 ![Chat screen](./assets/screenshot1.png)
-![Mobile home screen](./assets/screenshot_mobile.png)
-![Mobile chat screen](./assets/screenshot_mobile_chat.png)
+![Mobile home screen](./assets/IMG_5013.PNG)
+![Mobile chat screen](./assets/IMG_5015.PNG)
