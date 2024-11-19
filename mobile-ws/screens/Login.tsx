@@ -4,6 +4,8 @@ import {
   TextInput,
   StyleSheet,
   ImageBackground,
+  SafeAreaView,
+  Pressable,
 } from 'react-native';
 import { Button } from '../components/ui/Button';
 import { RootStackParamsList } from '../App';
@@ -13,6 +15,7 @@ import useWebSocket, { ReadyState } from 'react-native-use-websocket';
 import { useState } from 'react';
 import { WS_URL_DEV } from '../utils/api';
 import { useChatContext } from '../providers/ChatProvider';
+import Colors from '../utils/colors';
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamsList,
@@ -43,122 +46,116 @@ export function LoginScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('../assets/background-gradient.png')}
-        resizeMode='cover'
-        style={styles.image}
-      >
-        <View style={styles.loginBox}>
-          <View style={styles.textContainer}>
-            <Text style={styles.welcomeText}>Welcome!</Text>
-            <Text style={styles.joinText}>Join the chat</Text>
-          </View>
+    <SafeAreaView style={styles.container}>
+      {/* Header Section */}
+      <View style={styles.centerContent}>
+        {/* Header Section */}
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Welcome!</Text>
+          <Text style={styles.subHeaderText}>Join the chat</Text>
+        </View>
+
+        {/* Form Section */}
+        <View style={styles.formContainer}>
           <TextInput
             value={username}
             onChangeText={setUsername}
             style={styles.input}
             placeholder='Enter your username'
+            placeholderTextColor={Colors.yellowParagraph}
           />
-          <Button
-            onPress={logInUser}
-            viewStyle={styles.joinButtonView}
-            textStyle={styles.joinButtonText}
-          >
-            Join
-          </Button>
+          <Pressable style={styles.loginButton} onPress={logInUser}>
+            <Text style={styles.loginButtonText}>Join</Text>
+          </Pressable>
         </View>
+      </View>
 
-        <View style={styles.exitButtonView}>
-          <Button
-            onPress={() => navigation.navigate('Welcome')}
-            viewStyle={{ backgroundColor: '#000' }}
-            textStyle={{ fontSize: 16 }}
-          >
-            Exit
-          </Button>
-        </View>
-      </ImageBackground>
-    </View>
+      {/* Footer Section */}
+      <View style={styles.footerContainer}>
+        <Pressable
+          style={styles.exitButton}
+          onPress={() => navigation.navigate('Welcome')}
+        >
+          <Text style={styles.exitButtonText}>Exit</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 0,
-    width: '100%',
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: Colors.blueBackground,
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
   },
-  image: {
+  centerContent: {
     flex: 1,
-    justifyContent: 'center',
-    width: '100%',
+    justifyContent: 'center', // Centers content vertically
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
-  loginBox: {
-    backgroundColor: '#E0F7FA',
-    marginTop: 30,
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-    width: '90%',
-    borderColor: '#3F51B5',
-    borderWidth: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
-    marginHorizontal: 20,
+  headerContainer: {
+    alignItems: 'center',
+    marginBottom: 30, // Spacing between header and input
   },
-  textContainer: {
-    justifyContent: 'flex-start',
-  },
-  welcomeText: {
-    marginVertical: 8,
-    textTransform: 'uppercase',
+  headerText: {
     fontSize: 32,
     fontWeight: 'bold',
-    lineHeight: 40,
+    color: Colors.greenHeader,
+    textAlign: 'center',
+    marginBottom: 10,
   },
-  joinText: {
-    paddingTop: 8,
-    marginVertical: 8,
+  subHeaderText: {
     fontSize: 18,
-    color: '#6B7280',
+    color: Colors.greenParagraph,
+    textAlign: 'center',
+  },
+  formContainer: {
+    alignItems: 'center',
+    width: '100%',
   },
   input: {
-    marginVertical: 8,
-    padding: 8,
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: '#9CA3AF',
-    width: 300,
-  },
-  joinButtonView: {
-    backgroundColor: '#3B82F6',
-    marginTop: 16,
-    paddingVertical: 4,
-    paddingHorizontal: 16,
+    width: '90%',
+    height: 50,
+    borderColor: Colors.yellowHeader,
+    borderWidth: 2,
     borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
-    alignSelf: 'center',
+    paddingHorizontal: 15,
+    fontSize: 16,
+    backgroundColor: '#f9f9f9',
+    marginBottom: 20,
+    color: Colors.yellowHeader,
   },
-  joinButtonText: {
-    fontSize: 20,
-    color: '#F1F5F9',
+  loginButton: {
+    backgroundColor: Colors.greenBackground,
+    paddingVertical: 15,
+    paddingHorizontal: 60,
+    borderRadius: 30,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  loginButtonText: {
+    fontSize: 16,
+    color: Colors.pinkHeader,
     fontWeight: 'bold',
   },
-  exitButtonView: {
-    textAlign: 'center',
-    justifyContent: 'center',
+  footerContainer: {
     alignItems: 'center',
-    marginHorizontal: 'auto',
-    marginTop: 80,
+    marginBottom: 30,
+  },
+  exitButton: {
+    backgroundColor: Colors.blueHeader,
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 20,
+  },
+  exitButtonText: {
+    fontSize: 16,
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });

@@ -17,14 +17,16 @@ function stringToColor(string) {
 }
 
 export function stringAvatar(name) {
-  const splitName = checkForSpace(name);
+  console.log('name', name);
+  const trimmedName = name.trim();
+  const splitName = checkForSpace(trimmedName);
   return {
     sx: {
-      bgcolor: stringToColor(name),
+      bgcolor: stringToColor(trimmedName),
     },
     children: splitName
-      ? `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
-      : `${name.split(' ')[0][0]}`,
+      ? `${trimmedName.split(' ')[0][0]}${trimmedName.split(' ')[1][0]}`
+      : `${trimmedName.split(' ')[0][0]}`,
   };
 }
 

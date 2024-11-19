@@ -8,6 +8,7 @@ import { WS_URL_DEV } from '../utils/api';
 import { useChatContext } from '../providers/ChatProvider';
 import { UserInfo } from '../components/UserInfo';
 import { ChatArea } from '../components/ChatArea';
+import Colors from '../utils/colors';
 
 type InteractiveScreenNavigationProp = StackNavigationProp<
   RootStackParamsList,
@@ -31,30 +32,29 @@ export function InteractionArea() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require('../assets/background-gradient.png')}
-        resizeMode='cover'
-        style={styles.image}
-      >
-        <View style={styles.userBox}>
-          <View style={styles.textContainer}>
-            <Text style={styles.interactionText}>Chat Area - Users:</Text>
-          </View>
-          <UserInfo />
+      <View style={styles.userBox}>
+        <View style={styles.textContainer}>
+          <Text style={styles.interactionText}>Online Users</Text>
         </View>
-        <View style={styles.chatArea}>
-          <ChatArea />
-        </View>
-        <View style={styles.exitButtonView}>
-          <Button
-            onPress={logoustUser}
-            viewStyle={{ backgroundColor: '#000' }}
-            textStyle={{ fontSize: 16 }}
-          >
-            Exit
-          </Button>
-        </View>
-      </ImageBackground>
+        <UserInfo />
+      </View>
+      <View style={styles.chatArea}>
+        <ChatArea />
+      </View>
+      <View style={styles.exitButtonView}>
+        <Button
+          onPress={logoustUser}
+          viewStyle={{
+            backgroundColor: Colors.blueHeader,
+            paddingVertical: 10,
+            paddingHorizontal: 40,
+            borderRadius: 20,
+          }}
+          textStyle={{ fontSize: 16, color: '#fff', fontWeight: 'bold' }}
+        >
+          Exit
+        </Button>
+      </View>
     </View>
   );
 }
@@ -80,9 +80,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 16,
     width: '90%',
-    borderColor: '#3F51B5',
-    borderWidth: 2,
-    shadowColor: '#000',
+    shadowColor: Colors.blueParagraph,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
@@ -96,9 +94,11 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     width: '90%',
     backgroundColor: 'transparent',
-    borderColor: '#3F51B5',
-    borderWidth: 2,
-    borderRadius: 50,
+    shadowColor: Colors.blueParagraph,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
   textContainer: {
     justifyContent: 'flex-start',
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     lineHeight: 40,
+    textAlign: 'center',
   },
   exitButtonView: {
     textAlign: 'center',
@@ -116,5 +117,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 'auto',
     marginVertical: 40,
+  },
+  exitButton: {
+    backgroundColor: Colors.blueHeader,
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 20,
+  },
+  exitButtonText: {
+    fontSize: 16,
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });

@@ -21,15 +21,11 @@ export function Button({
 }) {
   return (
     <Pressable
-      style={({ pressed }) => [
-        styles.button,
-        pressed && styles.pressed,
-        viewStyle,
-      ]}
+      style={({ pressed }) => [pressed && styles.pressed, viewStyle]}
       onPress={onPress}
     >
       <View>
-        <Text style={[styles.buttonText, textStyle]}>{children}</Text>
+        <Text style={textStyle}>{children}</Text>
       </View>
     </Pressable>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   ImageBackground,
+  Keyboard,
 } from 'react-native';
 import useWebSocket, { ReadyState } from 'react-native-use-websocket';
 import { WS_URL_DEV, isContentEvent } from '../utils/api';
@@ -14,6 +15,7 @@ import { useChatContext } from '../providers/ChatProvider';
 
 export function ChatArea() {
   const { username } = useChatContext();
+  const scrollViewRef = useRef<ScrollView>(null);
   const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL_DEV, {
     share: true,
     filter: isContentEvent,
@@ -38,6 +40,7 @@ export function ChatArea() {
       username: username,
     });
     setMessage('');
+    Keyboard.dismiss();
   }
 
   return (
@@ -57,8 +60,14 @@ export function ChatArea() {
           style={styles.chatBackground}
         >
           <View style={styles.overlay} />
-          <ScrollView contentContainerStyle={styles.messageContainer}>
-            {[...content].reverse().map((content, index) => (
+          <ScrollView
+            contentContainerStyle={styles.messageContainer}
+            ref={scrollViewRef}
+            onContentSizeChange={() =>
+              scrollViewRef.current?.scrollToEnd({ animated: true })
+            }
+          >
+            {[...content].map((content, index) => (
               <Text
                 key={`activity-${index}`}
                 style={[
@@ -107,10 +116,11 @@ const styles = StyleSheet.create({
   chatBackground: {
     flex: 1,
     resizeMode: 'cover',
+    position: 'relative',
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(255, 255, 255, 0.817)',
   },
   messageContainer: {
     flexGrow: 1,
@@ -120,7 +130,6 @@ const styles = StyleSheet.create({
     padding: 10,
     fontWeight: 'bold',
     marginBottom: 5,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fully opaque background for text
   },
   ownMessage: {
     color: 'blue',

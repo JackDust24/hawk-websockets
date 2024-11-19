@@ -6,6 +6,9 @@ import { LoginScreen } from './screens/Login';
 import { InteractionArea } from './screens/InteractionArea';
 import { WelcomeScreen } from './screens/Welcome';
 import { ChatProvider } from './providers/ChatProvider';
+import * as Font from 'expo-font';
+import { useEffect, useState } from 'react';
+import Colors from './utils/colors';
 
 export type RootStackParamsList = {
   Welcome: undefined;
@@ -26,17 +29,17 @@ const Navigation = () => {
           <Stack.Screen
             name='Welcome'
             component={WelcomeScreen}
-            options={{ cardStyle: { backgroundColor: '#8c4ef4' } }}
+            options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
           />
           <Stack.Screen
             name='Login'
             component={LoginScreen}
-            options={{ cardStyle: { backgroundColor: '#8c4ef4' } }}
+            options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
           />
           <Stack.Screen
             name='InteractionArea'
             component={InteractionArea}
-            options={{ cardStyle: { backgroundColor: '#8c4ef4' } }}
+            options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -45,6 +48,23 @@ const Navigation = () => {
 };
 
 export default function App() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
+        'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
+      });
+      setFontsLoaded(true);
+    }
+
+    loadFonts();
+  }, []);
+
+  if (!fontsLoaded) {
+    return null; // Render a loading screen if fonts aren't loaded yet
+  }
   return (
     <>
       <Navigation />
