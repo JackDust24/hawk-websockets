@@ -2,13 +2,19 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LoginScreen } from './screens/Login';
+import { HawkRewardsScreen } from './screens/HawkRewards';
+import { ProfileScreen } from './screens/Profile';
+import { RewardsScreen } from './screens/Rewards';
+import { InfoScreen } from './screens/Info';
 import { InteractionArea } from './screens/InteractionArea';
 import { WelcomeScreen } from './screens/Welcome';
 import { ChatProvider } from './providers/ChatProvider';
 import * as Font from 'expo-font';
 import { useEffect, useState } from 'react';
 import Colors from './utils/colors';
+import { Ionicons } from '@expo/vector-icons';
 
 export type RootStackParamsList = {
   Welcome: undefined;
@@ -16,36 +22,73 @@ export type RootStackParamsList = {
   InteractionArea: undefined;
 };
 
+const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator<RootStackParamsList>();
 
-const Navigation = () => {
+function HomeStack() {
   return (
-    <ChatProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName='Welcome'
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen
-            name='Welcome'
-            component={WelcomeScreen}
-            options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
-          />
-          <Stack.Screen
-            name='Login'
-            component={LoginScreen}
-            options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
-          />
-          <Stack.Screen
-            name='InteractionArea'
-            component={InteractionArea}
-            options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ChatProvider>
+    <Stack.Navigator
+      initialRouteName='Welcome'
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen
+        name='Welcome'
+        component={WelcomeScreen}
+        options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
+      />
+      <Stack.Screen
+        name='Login'
+        component={LoginScreen}
+        options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
+      />
+      <Stack.Screen
+        name='InteractionArea'
+        component={InteractionArea}
+        options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
+      />
+    </Stack.Navigator>
   );
-};
+}
+
+function Tabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName: keyof typeof Ionicons.glyphMap = 'home';
+
+          switch (route.name) {
+            case 'Home':
+              iconName = 'home';
+              break;
+            case 'HawkRewards':
+              iconName = 'pricetags';
+              break;
+            case 'Profile':
+              iconName = 'person';
+              break;
+            case 'Rewards':
+              iconName = 'gift';
+              break;
+            case 'Info':
+              iconName = 'information-circle';
+              break;
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: Colors.blueHeader,
+        tabBarInactiveTintColor: 'gray',
+        headerShown: false,
+      })}
+    >
+      <Tab.Screen name='Home' component={HomeStack} />
+      <Tab.Screen name='HawkRewards' component={HawkRewardsScreen} />
+      <Tab.Screen name='Profile' component={ProfileScreen} />
+      <Tab.Screen name='Rewards' component={RewardsScreen} />
+      <Tab.Screen name='Info' component={InfoScreen} />
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -63,13 +106,15 @@ export default function App() {
   }, []);
 
   if (!fontsLoaded) {
-    return null; // Render a loading screen if fonts aren't loaded yet
+    return null;
   }
   return (
-    <>
-      <Navigation />
+    <ChatProvider>
+      <NavigationContainer>
+        <Tabs />
+      </NavigationContainer>
       <StatusBar style='auto' />
-    </>
+    </ChatProvider>
   );
 }
 
