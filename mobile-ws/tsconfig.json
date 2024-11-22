@@ -4,6 +4,14 @@
     "jsx": "react-native",
     "strict": true
   },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.jpg",
+    "**/*.jpeg",
+    "**/*.png",
+    "custom.d.ts"
+  ],
   "paths": {
     "@/*": ["./*"]
   }

@@ -10,6 +10,7 @@ import { RewardsScreen } from './screens/Rewards';
 import { InfoScreen } from './screens/Info';
 import { InteractionArea } from './screens/InteractionArea';
 import { WelcomeScreen } from './screens/Welcome';
+import { RewardDetailsScreen } from './screens/RewardDetails';
 import { ChatProvider } from './providers/ChatProvider';
 import * as Font from 'expo-font';
 import { useEffect, useState } from 'react';
@@ -20,6 +21,8 @@ export type RootStackParamsList = {
   Welcome: undefined;
   Login: undefined;
   InteractionArea: undefined;
+  RewardsScreen: undefined;
+  RewardDetail: { reward: any };
 };
 
 const Tab = createBottomTabNavigator();
@@ -45,6 +48,51 @@ function HomeStack() {
         name='InteractionArea'
         component={InteractionArea}
         options={{ cardStyle: { backgroundColor: Colors.blueBackground } }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function RewardsStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName='RewardsScreen'
+      screenOptions={{ headerShown: true }}
+    >
+      <Stack.Screen
+        name='RewardsScreen'
+        component={RewardsScreen}
+        options={{
+          headerShown: true,
+          headerTitle: 'Rewards',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#f5f5f5',
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 22,
+            color: Colors.blueHeader,
+          },
+          headerLeft: () => null, // No back button
+        }}
+      />
+      <Stack.Screen
+        name='RewardDetail'
+        component={RewardDetailsScreen}
+        options={{
+          headerShown: true,
+          headerTitle: 'Rewards',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#f5f5f5',
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 22,
+            color: Colors.blueHeader,
+          },
+        }}
       />
     </Stack.Navigator>
   );
@@ -84,7 +132,7 @@ function Tabs() {
       <Tab.Screen name='Home' component={HomeStack} />
       <Tab.Screen name='HawkRewards' component={HawkRewardsScreen} />
       <Tab.Screen name='Profile' component={ProfileScreen} />
-      <Tab.Screen name='Rewards' component={RewardsScreen} />
+      <Tab.Screen name='Rewards' component={RewardsStack} />
       <Tab.Screen name='Info' component={InfoScreen} />
     </Tab.Navigator>
   );
