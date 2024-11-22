@@ -13,6 +13,7 @@ export interface IVendor extends Document {
   duration: string;
   vendorEmail: string;
   vendorPassword: string;
+  vendorImage: string;
 }
 
 const VendorSchema: Schema = new Schema({
@@ -28,6 +29,8 @@ const VendorSchema: Schema = new Schema({
   duration: { type: String, required: true },
   vendorEmail: { type: String, required: true },
   vendorPassword: { type: String, required: true },
+  vendorImage: { type: String, required: false },
 });
 
-export default mongoose.model<IVendor>('Vendor', VendorSchema);
+export default mongoose.models.Vendor ||
+  mongoose.model<IVendor>('Vendor', VendorSchema);

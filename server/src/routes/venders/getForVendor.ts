@@ -27,10 +27,36 @@ router.get('/listRewards/:vendorId', async (req, res) => {
   }
 });
 
+router.get('/listAllRewardsActive/:vendorId', async (req, res) => {
+  try {
+    const { vendorId } = req.params;
+    const rewardsInUse = await Reward.find({
+      vendorId,
+      status: 'active',
+    });
+
+    if (rewardsInUse.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'No rewards in use' });
+    }
+
+    res.json({ success: true, data: rewardsInUse });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Failed to retrieve any rewards in use',
+      error,
+    });
+  }
+});
+
 router.get('/listAllRewardsInUse/:vendorId', async (req, res) => {
   try {
     const { vendorId } = req.params;
-    const rewardsInUse = await RewardsInUse.find({ vendorId });
+    const rewardsInUse = await RewardsInUse.find({
+      vendorId,
+    });
 
     if (rewardsInUse.length === 0) {
       return res
@@ -51,8 +77,6 @@ router.get('/listAllRewardsInUse/:vendorId', async (req, res) => {
 router.get('/listAllRewardsInUseByUser/:vendorId/:userId', async (req, res) => {
   try {
     const { userId, vendorId } = req.params;
-
-    // Query to find rewards in use for the given userId and vendorId
     const rewardsInUse = await RewardsInUse.find({ userId, vendorId });
 
     if (rewardsInUse.length === 0) {

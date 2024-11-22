@@ -18,4 +18,5 @@ const UserSchema: Schema = new Schema({
   lastUsedDate: { type: Date, required: false },
 });
 
-export default mongoose.model<IUser>('User', UserSchema);
+export default mongoose.models.User ||
+  mongoose.model<IUser>('User', UserSchema);

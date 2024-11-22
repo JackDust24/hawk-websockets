@@ -5,7 +5,7 @@ import User from '../../db/models/user';
 
 const router = Router();
 
-router.get('/addUser', async (req, res) => {
+router.post('/addUser', async (req, res) => {
   try {
     const userData = req.body;
     const newUser = new User(userData);

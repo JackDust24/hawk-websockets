@@ -23,7 +23,7 @@ router.put('/useRewardStamp/:id', async (req, res) => {
         .json({ success: false, message: 'No more stamps available' });
     }
 
-    rewardInUse.rewardStampsUsed -= 1;
+    rewardInUse.rewardStampsUsed += 1;
     await rewardInUse.save();
 
     res.json({ success: true, data: rewardInUse });

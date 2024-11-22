@@ -6,9 +6,9 @@ import connectMongoDB from './db/connect';
 import vendorGetRoutes from './routes/venders/getForVendor';
 import vendorPostRoutes from './routes/venders/postForVendor';
 import vendorUpdateRoutes from './routes/venders/updateFOrVendor';
-import UserGetRoutes from './routes/venders/getForVendor';
-import UserPostRoutes from './routes/venders/getForVendor';
-import UserUpdateRoutes from './routes/venders/getForVendor';
+import UserGetRoutes from './routes/users/getForUser';
+import UserPostRoutes from './routes/users/postForUser';
+import UserUpdateRoutes from './routes/users/updateForUser';
 import AdminVendorRoutes from './routes/admin/vendors';
 
 import dotenv from 'dotenv';

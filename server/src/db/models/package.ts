@@ -18,4 +18,5 @@ const PackageSchema: Schema = new Schema({
   discountPrice: { type: Number, required: false },
 });
 
-export default mongoose.model<IPackage>('Package', PackageSchema);
+export default mongoose.models.Package ||
+  mongoose.model<IPackage>('Package', PackageSchema);

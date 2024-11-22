@@ -9,15 +9,49 @@ const router = Router();
 router.get('/retrieveAllRewardsInUseForUser/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
-    const rewardsInUse = await RewardsInUse.find({ userId });
+    const rewardsInUse = await RewardsInUse.find({ userId })
+      .populate('rewardId') // Populate the Reward model
+      .populate('vendorId') // Populate the Vendor model
+      .exec();
 
+    console.log('rewardsInUse', rewardsInUse);
     if (rewardsInUse.length === 0) {
       return res
         .status(404)
         .json({ success: false, message: 'No rewards in use for this user' });
     }
+    const responseData = rewardsInUse.map((rewardInUse, index) => {
+      // console.log(rewardInUse);
+      const reward = rewardInUse.rewardId;
+      const vendor = rewardInUse.vendorId;
 
-    res.json({ success: true, data: rewardsInUse });
+      if (!reward || !vendor) {
+        return res.status(500).json({
+          success: false,
+          message: 'Invalid data: Reward or Vendor not found',
+        });
+      }
+
+      console.log(reward.rewardInfo);
+      console.log(vendor.name);
+
+      return {
+        rewardId: reward._id,
+        rewardTitle: reward.rewardTitle,
+        rewardInfo: reward.rewardInfo,
+        rewardDescription: reward.rewardDescription,
+        rewardStamps: rewardInUse.rewardStamps,
+        rewardStampsUsed: rewardInUse.rewardStampsUsed,
+        vendorName: vendor.name,
+        vendorLocation: vendor.location,
+        vendorIndustry: vendor.industry,
+        vendorImage: vendor.vendorImage || '',
+        rewardImage: reward.rewardImage || '',
+        stampsLeft: rewardInUse.rewardStamps - rewardInUse.rewardStampsUsed,
+      };
+    });
+
+    res.json({ success: true, data: responseData });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -76,7 +110,7 @@ router.get(
       res.status(500).json({
         success: false,
         message: 'Failed to retrieve rewards in use',
-        error: error.message,
+        error: error,
       });
     }
   }
