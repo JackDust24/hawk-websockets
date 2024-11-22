@@ -21,8 +21,8 @@ export function LoginSection({ onLogin }) {
     <div className='m-auto p-4'>
       <div className='bg-cyan-100 mt-7.5 mx-auto py-4 px-4 w-[500px] border-indigo-950 shadow-2xl border-2'>
         <div className='text-left'>
-          <p className='my-2 uppercase text-4xl font-bold	leading-7'>Welcome!</p>
-          <p className='pt-2 my-2 text-xl text-slate-500'>Join the chat</p>
+          <p className='my-2 uppercase text-5xl font-bold	leading-7'>Welcome!</p>
+          <p className='pt-2 my-2 text-2xl text-slate-500'>Join the chat</p>
         </div>
         <input
           name='username'

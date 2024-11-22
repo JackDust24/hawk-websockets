@@ -1,5 +1,5 @@
-import { ImageBackground, StyleSheet, View, Text } from 'react-native';
-import { Button } from '../components/ui/Button';
+import { StyleSheet, View, Text, Pressable, SafeAreaView } from 'react-native';
+import Colors from '../utils/colors';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamsList } from '../App';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -43,70 +43,98 @@ export function WelcomeScreen() {
   const navigateRoute = isLoggedIn ? 'InteractionArea' : 'Login';
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('../assets/background-gradient.png')}
-        resizeMode='cover'
-        style={styles.image}
-      >
-        <Text style={styles.header}>Welcome to HawkChat</Text>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Click</Text>
-          <Text
-            style={[styles.text, { fontWeight: '700', marginHorizontal: 5 }]}
-          >
-            Enter
+    <SafeAreaView style={styles.container}>
+      {/* Top Section: Header */}
+
+      {/* Middle Section: Cards */}
+      <View style={styles.cardContainer}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Welcome to HawkRewards</Text>
+        </View>
+        <View style={[styles.card, { backgroundColor: '#E0F7FA' }]}>
+          <Text style={[styles.cardTitle, { color: '#000' }]}>
+            Your Rewards
           </Text>
-          <Text style={styles.text}>below to enter app</Text>
+          <Text style={[styles.cardDescription, { color: Colors.blueHeader }]}>
+            Seamlessly find all your rewards in one place.
+          </Text>
         </View>
-        <View style={styles.buttonView}>
-          <Button onPress={() => navigation.navigate(navigateRoute)}>
-            Enter
-          </Button>
+
+        <View style={[styles.card, { backgroundColor: '#E0F7FA' }]}>
+          <Text style={[styles.cardTitle, { color: '#000' }]}>
+            Receive Updates and Latest Discounts
+          </Text>
+          <Text style={[styles.cardDescription, { color: Colors.blueHeader }]}>
+            Latest updates and chat with your rewards provider.
+          </Text>
         </View>
-      </ImageBackground>
-    </View>
+      </View>
+
+      {/* Bottom Section: Button */}
+      <View style={styles.buttonContainer}>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate(navigateRoute)}
+        >
+          <Text style={styles.buttonText}>Enter</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 0,
-    width: '100%',
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.blueBackground,
   },
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-    width: '100%',
-  },
-  header: {
-    color: '#f0e878',
-    fontSize: 64,
-    lineHeight: 84,
-    fontWeight: 'semibold',
-    textAlign: 'center',
+  headerContainer: {
+    alignItems: 'center',
     marginBottom: 40,
   },
-  textContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-  },
-  text: {
-    color: 'white',
-    fontSize: 28,
-    lineHeight: 42,
-    fontWeight: 'semibold',
+  header: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#333',
     textAlign: 'center',
   },
-  buttonView: {
+  cardContainer: {
+    flex: 1, // Takes available space
+    justifyContent: 'center', // Centers vertically within available space
+    paddingHorizontal: 20, // Adds padding for better spacing
+  },
+  card: {
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
     textAlign: 'center',
-    justifyContent: 'center',
+    marginBottom: 8,
+  },
+  cardDescription: {
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  buttonContainer: {
     alignItems: 'center',
-    marginHorizontal: 'auto',
-    marginTop: 80,
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: Colors.greenBackground,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    borderRadius: 30,
+  },
+  buttonText: {
+    color: Colors.greenHeader,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
