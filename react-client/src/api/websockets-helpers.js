@@ -10,4 +10,6 @@ export function isContentEvent(message) {
   return evt.type === 'content';
 }
 
+export const WS_URL_OLD = 'ws://127.0.0.1:8000';
+
 export const WS_URL = 'ws://127.0.0.1:8000';

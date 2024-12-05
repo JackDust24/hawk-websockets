@@ -30,9 +30,7 @@ router.post('/addRewardForUser/:userId/:rewardId/:stamps', async (req, res) => {
         ? stampsToUse
         : 1;
 
-    console.log('stampsToUse', validStampsToUse);
     const rewardInUse = await RewardsInUse.findOne({ userId, rewardId });
-    console.log('rewardsInUse', rewardInUse);
 
     if (rewardInUse) {
       // Ensure rewardStampsUsed doesn't exceed rewardStamps

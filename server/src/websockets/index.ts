@@ -68,11 +68,8 @@ export function broadcastMessage(json: JsonMessage): void {
 export function handleMessage(message: any, userId: string) {
   const dataFromClient = JSON.parse(message.toString());
   const json: JsonMessage = { type: dataFromClient.type, data: {} };
-  console.log(json, userId);
 
   if (dataFromClient.type === typesDef.USER_EVENT) {
-    console.log(`${dataFromClient.username} joined the chat`);
-
     users[userId] = dataFromClient;
     userActivity.push(`${dataFromClient.username} joined the chat`);
     json.data = { users, userActivity };
