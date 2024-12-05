@@ -14,14 +14,12 @@ router.get('/retrieveAllRewardsInUseForUser/:userId', async (req, res) => {
       .populate('vendorId') // Populate the Vendor model
       .exec();
 
-    console.log('rewardsInUse', rewardsInUse);
     if (rewardsInUse.length === 0) {
       return res
         .status(404)
         .json({ success: false, message: 'No rewards in use for this user' });
     }
     const responseData = rewardsInUse.map((rewardInUse, index) => {
-      // console.log(rewardInUse);
       const reward = rewardInUse.rewardId;
       const vendor = rewardInUse.vendorId;
 
@@ -31,9 +29,6 @@ router.get('/retrieveAllRewardsInUseForUser/:userId', async (req, res) => {
           message: 'Invalid data: Reward or Vendor not found',
         });
       }
-
-      console.log(reward.rewardInfo);
-      console.log(vendor.name);
 
       return {
         rewardId: reward._id,

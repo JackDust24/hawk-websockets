@@ -29,10 +29,8 @@ export function RewardsScreen({
   useEffect(() => {
     const fetchRewards = async () => {
       const URL = `${API}/get/retrieveAllRewardsInUseForUser/${TEST_USER_ID}`;
-      console.log('Fetching rewards:', URL);
       try {
         const response = await axios.get(URL);
-        console.log('Fetched rewards:', response.data.data);
         setRewardsInUse(response.data.data);
       } catch (error) {
         console.error('Error fetching rewards:', error);
@@ -44,8 +42,6 @@ export function RewardsScreen({
 
   // Render each item in the rewards list
   const renderItem = ({ item }: { item: any }) => {
-    console.log('Item rewardImage:', item.rewardImage);
-
     return (
       <TouchableOpacity
         style={styles.itemContainer}

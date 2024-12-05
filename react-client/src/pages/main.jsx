@@ -13,6 +13,9 @@ export function MainPage() {
     onOpen: () => {
       console.log('Connection Made with Server');
     },
+    onError: (error) => {
+      console.error('WebSocket Error:', error);
+    },
     share: true,
     filter: () => false,
     retryOnError: true,
@@ -49,13 +52,4 @@ export function MainPage() {
       </Container>
     </>
   );
-}
-
-{
-  /* <React.Fragment>
-<CssBaseline />
-<Container maxWidth="sm">
-  <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />
-</Container>
-</React.Fragment> */
 }

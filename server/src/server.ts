@@ -2,6 +2,7 @@ import express from 'express';
 import { createServer } from 'http';
 import apiRouter from './api';
 import { setupWebSockets } from './websockets';
+import { setupAiChatWebSocket } from './websockets/chatai';
 import connectMongoDB from './db/connect';
 import vendorGetRoutes from './routes/venders/getForVendor';
 import vendorPostRoutes from './routes/venders/postForVendor';
@@ -18,6 +19,12 @@ dotenv.config();
 const port = process.env.PORT || 8000;
 const app = express();
 
+// websockets
+//TODO:  Need to split so can handle both
+const server = createServer(app);
+setupWebSockets(server);
+// setupAiChatWebSocket(server);
+
 // api
 app.use(express.json());
 
@@ -29,13 +36,10 @@ app.use('/api/users/get', UserGetRoutes);
 app.use('/api/users/post', UserPostRoutes);
 app.use('/api/users/update', UserUpdateRoutes);
 app.use('/api/admin/vendors', AdminVendorRoutes);
-
-// websockets
-const server = createServer(app);
-setupWebSockets(server);
+app.use('/api/users/get', UserGetRoutes);
 
 connectMongoDB().then(() => {
-  app.listen(port, () => {
+  server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
 });
